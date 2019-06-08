@@ -47,7 +47,7 @@
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
-                <a href='index.html' class="logo"><img src="{{ url_for('static',filename='images/logo.png') }}"/></a>
+                <a href='/' class="logo"><img src="{{ url_for('static',filename='images/logo.png') }}"/></a>
             </div>
         </div>
     </header>
@@ -61,7 +61,7 @@
             </div>
             <div>
                 <div class="select-warp url-input checked-dev">
-                    <form action="/index" class="select-warp-button" method="post" enctype="multipart/form-data">
+                    <form action="/" class="select-warp-button" method="post" enctype="multipart/form-data">
                         <div class="select-warp-input">
                             <input type="text" name="img_url">
                         </div>
@@ -69,7 +69,7 @@
                     </form>
                 </div>
                 <div class="select-warp up-file checked-dev">
-                    <form action="/index" class="select-warp-button" method="post" enctype="multipart/form-data">
+                    <form action="/" class="select-warp-button" method="post" enctype="multipart/form-data">
                         <div class="upload-wrap">
                             <input type="file" name="img" />
                             <input type="submit" class="button bt1" value="上传图片"/>
