@@ -7,7 +7,7 @@ from aip import AipImageClassify
 app = Flask(__name__)
 
 # haoservice查询key
-HAOSERVICE_KEY = 'f26a68790f634569867a295c02cc37dd'
+HAOSERVICE_KEY = '88005ebd24174690b3004a07b9e80aae'
 # 百度查询key
 APP_ID = '16440708'
 API_KEY = 'sPf4YNUaOjrVS8dMqHTYjN95'
@@ -77,7 +77,7 @@ def init():
     return '初始化成功'
 
 # 首页（搜索）
-@app.route('/index', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
         return render_template('index.html')
@@ -108,25 +108,29 @@ def index():
 @app.route('/typedetail/<string:car_type_id>')
 def typetail(car_type_id):
     index = request.args.get('index')
-    response = ur.urlopen(
-        'http://apis.haoservice.com/lifeservice/car/GetModel/?id=' +
-        car_type_id + '&key=' + HAOSERVICE_KEY + '&paybyvas=false'
-    )
-    type_result = eval(response.read().decode('utf-8'))['result']['List']
+    try:
+        response = ur.urlopen(
+            'http://apis.haoservice.com/lifeservice/car/GetModel/?id=' +
+            car_type_id + '&key=' + HAOSERVICE_KEY + '&paybyvas=false'
+        )
+        type_result = eval(response.read().decode('utf-8'))['result']['List']
+    except Exception:
+        return render_template('typedetail.html', msg="非常抱歉，暂无此车型信息")
     return render_template('typedetail.html', type_result=type_result, index=index)
+
 
 # 配置详情页
 @app.route('/detail/<string:car_id>')
 def detail(car_id):
-    response = ur.urlopen(
-        'http://apis.haoservice.com/lifeservice/car?id=' + str(
-            car_id) + '&key=' + HAOSERVICE_KEY + '&paybyvas=false')
-    details = eval(response.read().decode('utf-8'))['result']
-    print(details)
+    try:
+        response = ur.urlopen(
+            'http://apis.haoservice.com/lifeservice/car?id=' + str(
+                car_id) + '&key=' + HAOSERVICE_KEY + '&paybyvas=false')
+        details = eval(response.read().decode('utf-8'))['result']
+    except Exception:
+        return render_template('detail.html', msg='非常抱歉，暂无此车型信息')
     index = request.args.get('index')
     price = request.args.get('price')
-    # details = eval(
-    #     "{'基本参数': {'img': 'https://car2.autoimg.cn/cardfs/product/g2/M08/EB/AB/t_autohomecar__wKgHFlsX2JOATHguAApj2TqFUug251.jpg', 'manufacturers': '广汽本田', 'level': '中型车', 'engine': '1.5T 177马力 L4', 'gearbox': 'CVT无级变速', 'longHighWith': '4893*1862*1449', 'bodyStructure': '4门5座三厢车', 'maximumSpeed': '190', 'officialAcceleration': '-', 'measuredAcceleration': '-', 'measuredBrake': '-', 'measuredFuelConsumption': '-', 'averageConsumptionOfCertification': '-', 'ministryOfIntegratedFuelConsumption': '6.4', 'measuredGroundClearance': '', 'vehicleQuality': '三年或10万公里'}, '车身': {'length': '4893', 'width': '1862', 'height': '1449', 'wheelbase': '2830', 'frontTrack': '1600', 'rearWheel': '1610', 'minnumGroundClearance': '-', 'kerbMass': '1475', 'bodyStructure': '三厢车', 'numberOfDoors': '4', 'numberOfSeats': '5', 'mailVolume': '56', 'compartmentVolume': '-'}, '发动机': {'model': '-', 'displacement': '1498', 'intakeForm': '涡轮增压', 'cylinderExhaustForm': 'L', 'cylinders': '4', 'valvePerCylinder': '4', 'compressionRatio': '10.3', 'gasDistrbutionMechanism': 'DOHC', 'cylinderBy': '-', 'trip': '-', 'maxHorsepower': '177', 'maxPower': '130', 'maxPowerSpeed': '6000', 'maxTorque': '230', 'maxTorqueSpeed': '1500-3000', 'specialTechnology': '-', 'fuelForm': '汽油', 'fuel': '92号', 'fuleWay': '直喷', 'cylinderHeadMeterial': '铝合金', 'cylinderMaterial': '铝合金', 'environmentalProtection': '国V'}, '变速箱': {'abbreviation': 'CVT无级变速', 'grarNum': '无级变速', 'type': '无级变速箱(CVT)'}, '底盘转向': {'drivingMethod': '前置前驱', 'fourWheelDriveForm': '', 'centralDifferentialStructure': '', 'frontSuspensionType': '麦弗逊式独立悬架', 'SuspensionType': '多连杆独立悬架', 'powerType': '电动助力', 'bodyStructure': '承载式'}, '车轮制动': {'frontBrakeType': '通风盘式', 'brakeType': '盘式', 'parkingBrakeType': '电子驻车', 'frontTyreSpecifications': '225/50 R17', 'typreSpecifications': '225/50 R17', 'spareTrieSpecifications': '非全尺寸'}, '安全装备': {'lordDeputyDirversSeatAirbag': '主●&nbsp;/&nbsp;副●', 'frontAndRearSideAirbags': '前●&nbsp;/&nbsp;后-', 'beforeAndAffterTheHeadAirbag': '-', 'kneeAirbag': '-', 'pressureMonitoringDevice': '●', 'zeroPressureContinuedTravel': '-', 'sagetyBeltPrompt': '●', 'childSeatInterface': '●', 'engineElectronicAntitheft': '●', 'controlLock': '●', 'RmeoteKey': '-', 'keylessStartSystem': '●', 'keylessEntrySystem': '-'}, '操控配置': {'ABS': '●', 'brakingForceDistribution': '●', 'braleAssist': '●', 'tractionControl': '●', 'stabilityControl': '●', 'upslopeAuxiliary': '●', 'automaticParking': '●', 'steepSlopeSlowlyDescending': '-', 'variableSuspension': '-', 'frontAxleLimitedSlip': '-', 'centralDifferential': '-', 'axleLimitedSlip': '-', 'differentialLocking': '-', 'DifferetialMechanism': '-'}, '外部配置': {'electricSkylight': '●', 'panoramicSunroof': '-', 'appearancePackage': '-', 'aluminumAlloyWheels': '●', 'electricSuctionDoor': '-', 'slideDoor': '-', 'electricTrunk': '-'}, '内部配置': {'leatherSteeringWheel': '', 'steeringWheelAdjustment': '上下+前后调节', 'steeringWheelOfElectricControl': '-', 'multifunctionSteeringWheel': '●', 'steeringWheelShift': '-', 'steeringWheelHeating': '-', 'cruiseControl': '-', 'parkingRadar': '-', 'reverseVideoPhotography': '-', 'drivingComputerDispaly': '●', 'HUD': '-'}, '座椅配置': {'genuineLeather': '', 'movementStyle': '-', 'heightAdjustment': '●', 'lumbarSupport': '-', 'shoulderSupport': '-', 'driverSeatElectricAdjustment': '-', 'SecondRowOfBackrestAngleAdjustment': '-', 'secondSeatMove': '-', 'RearSeatElectricAdjustment': '-', 'electricSeatMemory': '-', 'Heating': '-', 'ventilation': '-', 'massage': '-', 'backDowmMode': '整体放倒', 'ThirdRowSeat': '-', 'handrail': '前●&nbsp;/&nbsp;后●', 'rearGlassFrame': '●'}, '多媒体配置': {'GPS': '-', 'orientationOfInteraction': '', 'consoleScreen': '●', 'hardDrive': '', 'bluetoothPhone': '●', 'TV': '-', 'rearLcdScreen': '-', 'externalSoundSource': 'USB', 'cd': '-', 'multimediaSystem': '', 'speakerBrand': '-', 'loundspeakersNum': '4-5喇叭'}, '灯光配置': {'gangGasHeadlight': 'LED', 'LED': '卤素', 'daytimeWalkLamp': '●', 'automaticHeadlights': '-', 'steeringSuxiliaryLamp': '-', 'steeringHeadlamp': '-', 'frontFogLamp': '●', 'headlightAdjusting': '●', 'headlightCleaning': '-', 'atmosphereLamp': '-'}, '玻璃后视镜': {'electricWindow': '前●&nbsp;/&nbsp;后●', 'preventClampsHand': '●', 'ultravioletRays': '●', 'mirrorElectricAdiustment': '●', 'rearviewMirrorHeating': '●', 'antiGtlare': '-', 'fold': '●', 'memory': '-', 'yangCurtain': '-', 'ceZheCurtain': '-', 'privacyglass': '-', 'cosmeticMirror': '●', 'rearWiper': '-', 'sensingWipers': '-'}, '空调冰箱': {'controlMethod': '自动●', 'rearAirConditioning': '', 'rearSeatVents': '●', 'temperatureCXontrol': '●', 'airConditioning': '●', 'regrigerator': '-'}, '高科技配置': {'automaticParking': '-', 'engineStartStop': '-', 'auxiliary': '-', 'laneDepartureWarning': '-', 'activesafety': '-', 'activeSteering': '-', 'nightVisionSystem': '-', 'lcdScreen': '-', 'adaptiveCruiseControl': '-', 'panoramicCamera': '-'}}")
     return render_template('detail.html', details=details, index=index, price=price)
 
 
