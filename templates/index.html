@@ -63,7 +63,7 @@
                 <div class="select-warp url-input checked-dev">
                     <form action="/" class="select-warp-button" method="post" enctype="multipart/form-data">
                         <div class="select-warp-input">
-                            <input type="text" name="img_url">
+                            <input type="url" name="img_url">
                         </div>
                         <input class="button bt1" type="submit" value="上传URL">
                     </form>
@@ -71,9 +71,10 @@
                 <div class="select-warp up-file checked-dev">
                     <form action="/" class="select-warp-button" method="post" enctype="multipart/form-data">
                         <div class="upload-wrap">
-                            <input type="file" name="img" />
-                            <input type="submit" class="button bt1" value="上传图片"/>
+                            <input type="file" id="file" name="img" onchange="changepic(this)" accept="image/png, image/jpeg, image/jpg" />
+                            <input type="submit" class="button bt1"  value="上传图片"/>
                         </div>
+                        <img src="" alt="" id="show" width="100%">
                     </form>
                 </div>
             </div>
@@ -246,6 +247,14 @@
 </body>
 </html>
 <script>
+    function changepic() {
+        var reads = new FileReader();
+        f = document.getElementById('file').files[0];
+        reads.readAsDataURL(f);
+        reads.onload = function (e) {
+            document.getElementById('show').src = this.result;
+        };
+    }
     $('.select-warp-btn').on('click', function () {
         var num = $(this).index();
         $('.select-warp-btn').removeClass('active');

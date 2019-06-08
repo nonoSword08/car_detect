@@ -15,7 +15,7 @@ SECRET_KEY = '1B48tlGDWnZZpk61cirTiRkOyTKTgpdm'
 
 # 数据库配置
 app.config['SECRET_KEY'] = '654321'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:bb12345@127.0.0.1:3306/car_detect'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:bb12345@47.105.162.90:3306/car_detect'
 # 每次请求结束后会自动提交数据库中的变动
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
