@@ -15,7 +15,7 @@ SECRET_KEY = '1B48tlGDWnZZpk61cirTiRkOyTKTgpdm'
 
 # 数据库配置
 app.config['SECRET_KEY'] = '654321'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:bb12345@47.105.162.90:3306/car_detect'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:bb12345@127.0.0.1:3306/car_detect'
 # 每次请求结束后会自动提交数据库中的变动
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -63,11 +63,16 @@ def init():
                 car_type_name = car_type_info['N']
                 car_type_id = car_type_info['I']
                 print('\t\t车型：%s，车型ID：%s' % (car_type_name, car_type_id))
+                # 处理字符串拿出索引字符串
+                if car_brand_name in car_type_name:
+                    index = car_type_name.replace('·', '')
+                else:
+                    index = car_brand_name.replace('·', '') + car_type_name.replace('·', '')
                 car_info = CarInfo(
                     brand_id=car_brand_id, brand_name=car_brand_name,
                     series_id=car_series_id, series_name=car_series_name,
                     type_id=car_type_id, type_name=car_type_name,
-                    index=(car_brand_name + car_type_name)
+                    index=index,
                 )
                 car_info_list.append(car_info)
     print(car_info_list)
@@ -83,7 +88,6 @@ def index():
         return render_template('index.html')
     else:
         img = request.files.get('img')
-        print(img)
         if not img:  # 没有上传图片则取url
             img_url = request.form.get('img_url')
             try:
@@ -94,13 +98,15 @@ def index():
         client = AipImageClassify(APP_ID, API_KEY, SECRET_KEY)
         options = {'top_num': 1, 'baike_num': 5}
         car_info = client.carDetect(img.read(), options)
+        if car_info['result'][0]['name'] == '非车类':
+            cars_info = None
+            return render_template('index.html', msg="未识别到车类")
         car_type_name = car_info['result'][0]['name']
         print(car_type_name)
         try:
             cars_info = CarInfo.query.filter(CarInfo.index.ilike('%' + car_type_name + '%'))
         except Exception:
             cars_info = None
-        print(cars_info)
         return render_template('index.html', cars_info=cars_info)
 
 

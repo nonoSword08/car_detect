@@ -59,7 +59,7 @@
                 <span class="select-warp-btn active">URL</span>
                 <span class="select-warp-btn">上传图片</span>
             </div>
-            <div>
+            <div class="row">
                 <div class="select-warp url-input checked-dev">
                     <form action="/" class="select-warp-button" method="post" enctype="multipart/form-data">
                         <div class="select-warp-input">
@@ -68,16 +68,16 @@
                         <input class="button bt1" type="submit" value="上传URL">
                     </form>
                 </div>
-                <div class="select-warp up-file checked-dev">
+                <div class="select-warp up-file checked-dev" >
                     <form action="/" class="select-warp-button" method="post" enctype="multipart/form-data">
                         <div class="upload-wrap">
                             <input type="file" id="file" name="img" onchange="changepic(this)" accept="image/png, image/jpeg, image/jpg" />
                             <input type="submit" class="button bt1"  value="上传图片"/>
                         </div>
-                        <img src="" alt="" id="show" width="100%">
                     </form>
                 </div>
             </div>
+            <img src="" class="img-responsive center-block" alt="" id="show" width="auto">
             <div class="select-results">
             {% if cars_info %}
                 <div>您可能在找：</div>
@@ -90,9 +90,7 @@
                 {% else %}
                 {{ msg }}
             {% endif %}
-
             </div>
-
         </div>
     </div>
 
@@ -102,14 +100,14 @@
                 <div class="wrap-box"><!--Start Box-->
                     <div class="zerogrid">
                         <div class="header">
-                            <h2>FEATURED CARS</h2>
+                            <h2>热门车型</h2>
                         </div>
                         <div class="row">
                             <div class="col-1-3">
                                 <div class="wrap-col">
                                     <div class="item t-center">
                                         <div class="item-container">
-                                            <a href="#">
+                                            <a href="/typedetail/582?index=阿斯顿·马丁DBS">
                                                 <div class="item-caption">
                                                     <div class="item-caption-inner">
                                                         <div class="item-caption-inner1">
@@ -121,13 +119,13 @@
                                             </a>
                                         </div>
                                         <div class="item-info">
-                                            <a href="#"><h3>LAMBORGHINI GALLARDO</h3></a>
-                                            <p>32,000 km €78,400</p>
+                                            <a href="/typedetail/582?index=阿斯顿·马丁DBS"><h3>阿斯顿·马丁DBS</h3></a>
+                                            <p>￥366800</p>
                                         </div>
                                     </div>
                                     <div class="item t-center">
                                         <div class="item-container">
-                                            <a href="#">
+                                            <a href="/typedetail/390?index=布加迪威航">
                                                 <div class="item-caption">
                                                     <div class="item-caption-inner">
                                                         <div class="item-caption-inner1">
@@ -139,8 +137,8 @@
                                             </a>
                                         </div>
                                         <div class="item-info">
-                                            <a href="#"><h3>LAMBORGHINI GALLARDO</h3></a>
-                                            <p>32,000 km €78,400</p>
+                                            <a href="/typedetail/390?index=布加迪威航"><h3>布加迪威航</h3></a>
+                                            <p>￥43000000</p>
                                         </div>
                                     </div>
                                 </div>
@@ -149,7 +147,7 @@
                                 <div class="wrap-col">
                                     <div class="item t-center">
                                         <div class="item-container">
-                                            <a href="#">
+                                            <a href="/typedetail/305?index=宾利欧陆">
                                                 <div class="item-caption">
                                                     <div class="item-caption-inner">
                                                         <div class="item-caption-inner1">
@@ -161,13 +159,13 @@
                                             </a>
                                         </div>
                                         <div class="item-info">
-                                            <a href="#"><h3>LAMBORGHINI GALLARDO</h3></a>
-                                            <p>32,000 km €78,400</p>
+                                            <a href="/typedetail/305?index=宾利欧陆"><h3>宾利欧陆</h3></a>
+                                            <p>￥328100</p>
                                         </div>
                                     </div>
                                     <div class="item t-center">
                                         <div class="item-container">
-                                            <a href="#">
+                                            <a href="/typedetail/551?index=玛莎拉蒂GranTurismo">
                                                 <div class="item-caption">
                                                     <div class="item-caption-inner">
                                                         <div class="item-caption-inner1">
@@ -179,8 +177,8 @@
                                             </a>
                                         </div>
                                         <div class="item-info">
-                                            <a href="#"><h3>LAMBORGHINI GALLARDO</h3></a>
-                                            <p>32,000 km €78,400</p>
+                                            <a href="/typedetail/551?index=玛莎拉蒂GranTurismo"><h3>玛莎拉蒂GranTurismo</h3></a>
+                                            <p>￥2888000</p>
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +187,7 @@
                                 <div class="wrap-col">
                                     <div class="item t-center">
                                         <div class="item-container">
-                                            <a href="#">
+                                            <a href="/typedetail/511?index=奥迪R8">
                                                 <div class="item-caption">
                                                     <div class="item-caption-inner">
                                                         <div class="item-caption-inner1">
@@ -201,13 +199,13 @@
                                             </a>
                                         </div>
                                         <div class="item-info">
-                                            <a href="#"><h3>LAMBORGHINI GALLARDO</h3></a>
-                                            <p>32,000 km €78,400</p>
+                                            <a href="/typedetail/511?index=奥迪R8"><h3>奥迪R8</h3></a>
+                                            <p>￥1592800</p>
                                         </div>
                                     </div>
                                     <div class="item t-center">
                                         <div class="item-container">
-                                            <a href="#">
+                                            <a href="/typedetail/676?index=法拉利California%20T">
                                                 <div class="item-caption">
                                                     <div class="item-caption-inner">
                                                         <div class="item-caption-inner1">
@@ -215,12 +213,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <img src="{{ url_for('static',filename='images/car1.jpg') }}"/>
+                                                <img src="{{ url_for('static',filename='images/car9.jpg') }}"/>
                                             </a>
                                         </div>
                                         <div class="item-info">
-                                            <a href="#"><h3>LAMBORGHINI GALLARDO</h3></a>
-                                            <p>32,000 km €78,400</p>
+                                            <a href="/typedetail/676?index=法拉利California%20T"><h3>法拉利California T</h3></a>
+                                            <p>￥3088000</p>
                                         </div>
                                     </div>
                                 </div>
@@ -238,7 +236,7 @@
                     <h3>Contact</h3>
                     <span>Phone / +80 999 99 9999 </span></br>
                     <span>Email / info@domain.com  </span></br>
-                    <span>Studio / Moonshine St. 14/05 Light City </span></br>
+                    <span>四川师范大学 物电专业实训项目 车型识别查询系统</span></br>
                 </div>
             </div>
         </div>
