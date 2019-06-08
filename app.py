@@ -15,7 +15,7 @@ SECRET_KEY = '1B48tlGDWnZZpk61cirTiRkOyTKTgpdm'
 
 # 数据库配置
 app.config['SECRET_KEY'] = '654321'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@120.78.81.19:3306/car_detect'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:bb12345@127.0.0.1:3306/car_detect'
 # 每次请求结束后会自动提交数据库中的变动
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -88,7 +88,7 @@ def index():
             img_url = request.form.get('img_url')
             try:
                 img = ur.urlopen(img_url)
-            except ValueError:
+            except Exception:
                 return render_template('index.html', msg="请上传文件或URL地址")
         # 上传到百度接口
         client = AipImageClassify(APP_ID, API_KEY, SECRET_KEY)
