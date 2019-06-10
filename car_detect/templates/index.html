@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/zerogrid.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/responsiveslides.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static',filename='js/jquery-latest.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/responsiveslides.min.js') }}"></script>
+    <script>
+        $(function () {
+            // Slideshow
+            $("#slider").responsiveSlides({
+                auto: true,
+                pager: false,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks",
+                before: function () {
+                    $('.events').append("<li>before event fired.</li>");
+                },
+                after: function () {
+                    $('.events').append("<li>after event fired.</li>");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="wrap-body">
+
+    <header class="bg-theme">
+        <div class="wrap-header zerogrid">
+            <div class="row">
+                <div id="cssmenu">
+                    <ul>
+                        <li class='active'><a href="/">Home</a></li>
+                    </ul>
+                </div>
+                <a href='/' class="logo"><img src="{{ url_for('static',filename='images/logo.png') }}"/></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-theme">
+        <div class="filter zerogrid">
+            <h2 class="t-center">智能图片识车</h2>
+            <div class="select-warp">
+                <span class="select-warp-btn active">URL</span>
+                <span class="select-warp-btn">上传图片</span>
+            </div>
+            <div class="row">
+                <div class="select-warp url-input checked-dev">
+                    <form action="/" class="select-warp-button" method="post" enctype="multipart/form-data">
+                        <div class="select-warp-input">
+                            <input type="url" name="img_url">
+                        </div>
+                        <input class="button bt1" type="submit" value="上传URL">
+                    </form>
+                </div>
+                <div class="select-warp up-file checked-dev" >
+                    <form action="/" class="select-warp-button" method="post" enctype="multipart/form-data">
+                        <div class="upload-wrap">
+                            <input type="file" id="file" name="img" onchange="changepic(this)" accept="image/png, image/jpeg, image/jpg" />
+                            <input type="submit" class="button bt1"  value="上传图片"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <img src="" class="img-responsive center-block" alt="" id="show" width="auto">
+            <div class="select-results">
+            {% if cars_info %}
+                <div>您可能在找：</div>
+                    <ul>
+                        {% for car_info in cars_info %}
+                            <li><a style="color: #eee;"
+                                    href="/typedetail/{{ car_info.type_id }}?index={{ car_info.index }}">{{ car_info.index }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                {{ msg }}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <section id="container">
+        <div class="wrap-container clearfix">
+            <div id="main-content">
+                <div class="wrap-box"><!--Start Box-->
+                    <div class="zerogrid">
+                        <div class="header">
+                            <h2>热门车型</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-1-3">
+                                <div class="wrap-col">
+                                    <div class="item t-center">
+                                        <div class="item-container">
+                                            <a href="/typedetail/582?index=阿斯顿·马丁DBS">
+                                                <div class="item-caption">
+                                                    <div class="item-caption-inner">
+                                                        <div class="item-caption-inner1">
+                                                            <span>2006 / 32,000 km / 250 HP / petrol / automatic /  Sports car/Coupe / Beige</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <img src="{{ url_for('static',filename='images/car1.jpg') }}"/>
+                                            </a>
+                                        </div>
+                                        <div class="item-info">
+                                            <a href="/typedetail/582?index=阿斯顿·马丁DBS"><h3>阿斯顿·马丁DBS</h3></a>
+                                            <p>￥366800</p>
+                                        </div>
+                                    </div>
+                                    <div class="item t-center">
+                                        <div class="item-container">
+                                            <a href="/typedetail/390?index=布加迪威航">
+                                                <div class="item-caption">
+                                                    <div class="item-caption-inner">
+                                                        <div class="item-caption-inner1">
+                                                            <span>2006 / 32,000 km / 250 HP / petrol / automatic /  Sports car/Coupe / Beige</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <img src="{{ url_for('static',filename='images/car5.jpg') }}"/>
+                                            </a>
+                                        </div>
+                                        <div class="item-info">
+                                            <a href="/typedetail/390?index=布加迪威航"><h3>布加迪威航</h3></a>
+                                            <p>￥43000000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1-3">
+                                <div class="wrap-col">
+                                    <div class="item t-center">
+                                        <div class="item-container">
+                                            <a href="/typedetail/305?index=宾利欧陆">
+                                                <div class="item-caption">
+                                                    <div class="item-caption-inner">
+                                                        <div class="item-caption-inner1">
+                                                            <span>2006 / 32,000 km / 250 HP / petrol / automatic /  Sports car/Coupe / Beige</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <img src="{{ url_for('static',filename='images/car2.jpg') }}"/>
+                                            </a>
+                                        </div>
+                                        <div class="item-info">
+                                            <a href="/typedetail/305?index=宾利欧陆"><h3>宾利欧陆</h3></a>
+                                            <p>￥328100</p>
+                                        </div>
+                                    </div>
+                                    <div class="item t-center">
+                                        <div class="item-container">
+                                            <a href="/typedetail/551?index=玛莎拉蒂GranTurismo">
+                                                <div class="item-caption">
+                                                    <div class="item-caption-inner">
+                                                        <div class="item-caption-inner1">
+                                                            <span>2006 / 32,000 km / 250 HP / petrol / automatic /  Sports car/Coupe / Beige</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <img src="{{ url_for('static',filename='images/car4.jpg') }}"/>
+                                            </a>
+                                        </div>
+                                        <div class="item-info">
+                                            <a href="/typedetail/551?index=玛莎拉蒂GranTurismo"><h3>玛莎拉蒂GranTurismo</h3></a>
+                                            <p>￥2888000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1-3">
+                                <div class="wrap-col">
+                                    <div class="item t-center">
+                                        <div class="item-container">
+                                            <a href="/typedetail/511?index=奥迪R8">
+                                                <div class="item-caption">
+                                                    <div class="item-caption-inner">
+                                                        <div class="item-caption-inner1">
+                                                            <span>2006 / 32,000 km / 250 HP / petrol / automatic /  Sports car/Coupe / Beige</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <img src="{{ url_for('static',filename='images/car3.jpg') }}"/>
+                                            </a>
+                                        </div>
+                                        <div class="item-info">
+                                            <a href="/typedetail/511?index=奥迪R8"><h3>奥迪R8</h3></a>
+                                            <p>￥1592800</p>
+                                        </div>
+                                    </div>
+                                    <div class="item t-center">
+                                        <div class="item-container">
+                                            <a href="/typedetail/676?index=法拉利California%20T">
+                                                <div class="item-caption">
+                                                    <div class="item-caption-inner">
+                                                        <div class="item-caption-inner1">
+                                                            <span>2006 / 32,000 km / 250 HP / petrol / automatic /  Sports car/Coupe / Beige</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <img src="{{ url_for('static',filename='images/car9.jpg') }}"/>
+                                            </a>
+                                        </div>
+                                        <div class="item-info">
+                                            <a href="/typedetail/676?index=法拉利California%20T"><h3>法拉利California T</h3></a>
+                                            <p>￥3088000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="zerogrid">
+            <div class="wrap-footer">
+                <div class="row">
+                    <h3>智能识车</h3>
+                    <span>实现语言：python</span></br>
+                    <span>使用框架：flask</span></br>
+                    <span><strong>四川师范大学 物电专业实训项目 车型识别查询系统</strong></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
+<script>
+    function changepic() {
+        var reads = new FileReader();
+        f = document.getElementById('file').files[0];
+        reads.readAsDataURL(f);
+        reads.onload = function (e) {
+            document.getElementById('show').src = this.result;
+        };
+    }
+    $('.select-warp-btn').on('click', function () {
+        var num = $(this).index();
+        $('.select-warp-btn').removeClass('active');
+        $(this).addClass('active');
+        $('.checked-dev').css('display', 'none');
+        $('.checked-dev').eq(num).css('display', 'flex')
+    })
+</script>
