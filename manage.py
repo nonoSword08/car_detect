@@ -3,5 +3,5 @@
 from car_detect import app
 from car_detect import view
 
-# if __name__ == '__main__':
-#     app.run()
+if __name__ == '__main__':
+    app.run()

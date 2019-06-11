@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/zerogrid.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/responsiveslides.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static',filename='js/jquery-latest.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/responsiveslides.min.js') }}"></script>
+    <script>
+        $(function () {
+            // Slideshow
+            $("#slider").responsiveSlides({
+                auto: true,
+                pager: false,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks",
+                before: function () {
+                    $('.events').append("<li>before event fired.</li>");
+                },
+                after: function () {
+                    $('.events').append("<li>after event fired.</li>");
+                }
+            });
+        });
+    </script>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+</head>
+<body>
+<div class="wrap-body">
+    <header class="bg-theme">
+        <div class="wrap-header zerogrid">
+            <div class="row">
+                <div id="cssmenu">
+                    <ul>
+                        <li class='active'><a href="./">Home</a></li>
+                    </ul>
+                </div>
+                <a href='./' class="logo"><img src="{{ url_for('static',filename='images/logo.png') }}"/></a>
+            </div>
+        </div>
+    </header>
+    {% block content %}{% endblock %}
+    <footer>
+        <div class="zerogrid">
+            <div class="wrap-footer">
+                <div class="row">
+                    <h3>智能识车</h3>
+                    <span>实现语言：python</span></br>
+                    <span>使用框架：flask</span></br>
+                    <span><strong>四川师范大学 物电专业实训项目 车型识别查询系统</strong></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+{% block js %}{% endblock %}
+</html>
